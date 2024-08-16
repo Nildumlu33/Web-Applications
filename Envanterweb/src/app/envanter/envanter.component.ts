@@ -31,7 +31,6 @@ export class EnvanterComponent implements OnInit {
     this.getEnvanters().then((data) => {
       this.loading = false;
       this.envanterData = data;
-      alert("deneme");
     });
   }
   getEnvanters() {

@@ -1,0 +1,112 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                    <button pButton pRipple label="Yeni" icon="pi pi-plus" class="p-button-success mr-2"
+                        (click)="openDialog()"></button>
+                    <button pButton pRipple label="Sil" icon="pi pi-trash" class="p-button-danger"
+                        (click)="dialogDeleteShow = true"></button>
+                </ng-template>
+            </p-toolbar>
+
+
+            <!-- <p-table #dt1 [value]="zimmetData" [rowHover]="true"
+                [tableStyle]="{ 'min-width': '60rem' }" [globalFilterFields]="['envanterId, personelAdi, zimmetTarihi']"
+                [paginator]="true" [rowsPerPageOptions]="[1, 5, 10, 15, 20, 30]" [rows]="10"
+                [(selection)]="selectedzimmet" selectionMode="single" dataKey="id"> -->
+
+                <p-table #dt1 [value]="zimmetData" [tableStyle]="{ 'min-width': '60rem' }" [rowHover]="true"
+                [globalFilterFields]="['envanterId, personelAdi, zimmetTarihi']" [paginator]="true"
+                [rowsPerPageOptions]="[1, 5, 10, 15, 20, 30]" [rows]="10" [(selection)]="selectedzimmet"
+                selectionMode="single" dataKey="id">
+
+
+
+                <ng-template pTemplate="caption">
+
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="envanterId" style="width:30%">
+                            Envanter Id <p-sortIcon field="envanterId" />
+                            <p-columnFilter type="text" field="envanterId" display="menu"></p-columnFilter>
+                        </th>
+                        <th pSortableColumn="personelAdi" style="width:30%">
+                            Personel Adı <p-sortIcon field="personelAdi" />
+                            <p-columnFilter type="text" field="personelAdi" display="menu"></p-columnFilter>
+                        </th>
+                        <th pSortableColumn="zimmetTarihi" style="width:30%">
+                            Zimmet Tarihi<p-sortIcon field="zimmetTarihi" />
+                            <p-columnFilter type="text" field="zimmetTarihi" display="menu"></p-columnFilter>
+                        </th>
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-zimmet>
+                    <tr [pSelectableRow]="rowData">
+                        <td>
+                            <p-tableCheckbox [value]="zimmet"></p-tableCheckbox>
+                        </td>
+                        <td>{{ zimmet.envanterId }}</td>
+                        <td>{{ zimmet.personelAdi }}</td>
+                        <td>{{ zimmet.zimmetTarihi }}</td>
+
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+<p-dialog [(visible)]="dialogShow" [style]="{width: '450px'}" header="Zimmetlenen Kişiyi Ekle/Düzenle" [modal]="true"
+    class="p-fluid">
+    <ng-template pTemplate="content">
+
+
+        <div class="field">
+            <label for="envanterId">Envanter Id</label>
+            <input type="text" pInputText id="envanterId" [(ngModel)]="selectedzimmet.envanterId" required autofocus />
+        </div>
+        <div class="field">
+            <label for="personelAdi">Personel Adı</label>
+            <input type="text" pInputText id="personelAdi" [(ngModel)]="selectedzimmet.personelAdi" required
+                autofocus />
+        </div>
+        <div class="field">
+            <label for="zimmetTarihi">Zimmet Tarihi</label>
+            <input type="text" pInputText id="zimmetTarihi" [(ngModel)]="selectedzimmet.zimmetTarihi" required
+                autofocus />
+        </div>
+        <!-- <div class="field">
+            <label for="envanterNo">Envanter No</label>
+            <input type="text" pInputText id="envanterNo" [(ngModel)]="selectedEnvanter.EnvanterNo" required
+                autofocus />
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
+        </div> -->
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="iptal" icon="pi pi-times" class="p-button-text"
+            (click)="dialogShow = false;"></button>
+        <button pButton pRipple label="Kaydet" icon="pi pi-check" class="p-button-text"></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="dialogDeleteShow" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+    <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span>Seçili Zimmet Silinecek Emin misiniz ? <b>{{selectedzimmet.envanterId}}</b>?</span>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+            (click)="dialogDeleteShow = false"></button>
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
+    </ng-template>
+</p-dialog>

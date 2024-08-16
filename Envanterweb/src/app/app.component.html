@@ -1,0 +1,73 @@
+<!-- <style>
+  ::selection
+  { background:silver}
+  input[type=text], select
+   { width: 100%;
+    padding: 15px 25px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color : midnightblue;}
+    
+  input[type=Submit]
+   {width: 50%;
+    background-color: lightsteelblue;
+    color: white;
+    padding: 15px 25px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color : midnightblue;}
+  
+  input[type=Submit]:hover
+   {background-color: rgb(153, 119, 119);
+    color : midnightblue;}
+  
+  div 
+  { border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    color : midnightblue;}
+  
+  h2, label, h3 
+  {  color: midnightblue; }
+  </style>
+
+<main class="main">
+  <div class="content">
+    <h2>Envanter Bilgi Sistemi</h2>
+
+    <div>
+      <form action="/action_page.php">
+        <label for="fname">Envanter Numarası</label>
+        <input type="text" id="envNo" name="Envanternumarasi" 
+      placeholder="Envanter Numarasını Giriniz.." required>
+    
+        
+        <label for="text">Evanter Tipi </label>
+        <select id="envTip" name="EnvanterTipi">
+        <option value="Secim">Seçiniz..</option>
+          <option value="Laptop">Laptop</option>
+          <option value="Keyboard">Keyboard</option>
+          <option value="Mouse">Mouse</option>
+    
+        </select>
+      
+        <input type="Submit" value="Arama">
+        
+        <h3>Kullanıcı İşlemleri</h3>
+    
+    <input type="Submit" value="Yeni Kayıt" (click)="ButonaTikla()">
+      <input type="Submit" value="Kullanıcı Düzenle">
+      <input type="Submit" value="Kullanıcı Sil">
+      </form>
+    </div>
+  </div>
+</main> -->
+
+
+
+<router-outlet></router-outlet>

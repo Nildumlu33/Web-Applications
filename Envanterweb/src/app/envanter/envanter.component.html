@@ -1,0 +1,113 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <button pButton pRipple label="Ekle" icon="pi pi-plus" class="p-button-success mr-2"
+                        (click)="selectedEnvanter={}; isUpdate = false; openDialog()"></button>
+                    <button pButton pRipple label="Düzenle" icon="pi pi-pencil" class="p-button-success mr-2"
+                        (click)="isUpdate = true; openDialog()"></button>
+                    <button pButton pRipple label="Sil" icon="pi pi-trash" class="p-button-danger"
+                        (click)="dialogDeleteShow = true"></button>
+                </ng-template>
+            </p-toolbar>
+            <p-table #dt1 [value]="envanterData" [tableStyle]="{ 'min-width': '60rem' }" [rowHover]="true"
+                [globalFilterFields]="['envanterNo', 'seriNo', 'envanterTipi', 'marka','model']" [paginator]="true"
+                [rowsPerPageOptions]="[1, 5, 10, 15, 20, 30]" [rows]="10" [(selection)]="selectedEnvanter"
+                selectionMode="single" dataKey="id">
+                <ng-template pTemplate="caption">
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="envanterNo" style="width:20%">
+                            Envanter No <p-sortIcon field="envanterNo" />
+                            <p-columnFilter type="text" field="envanterNo" display="menu"></p-columnFilter>
+                        </th>
+                        <th pSortableColumn="seriNo" style="width:20%">
+                            Seri No <p-sortIcon field="seriNo" />
+                            <p-columnFilter type="text" field="seriNo" display="menu"></p-columnFilter>
+                        </th>
+                        <th pSortableColumn="envanterTipi" style="width:20%">
+                            Envanter Tipi <p-sortIcon field="envanterTipi" />
+                            <p-columnFilter type="text" field="envanterTipi" display="menu"></p-columnFilter>
+                        </th>
+                        <th pSortableColumn="marka" style="width:20%">
+                            Marka <p-sortIcon field="marka" />
+                            <p-columnFilter type="text" field="marka" display="menu"></p-columnFilter>
+                        </th>
+                        <th pSortableColumn="model" style="width:20%">
+                            Model <p-sortIcon field="model" />
+                            <p-columnFilter type="text" field="model" display="menu"></p-columnFilter>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-envanter>
+                    <tr [pSelectableRow]="rowData">
+                        <td>
+                            <p-tableCheckbox [value]="envanter"></p-tableCheckbox>
+                        </td>
+                        <td>{{ envanter.envanterNo }}</td>
+                        <td>{{ envanter.seriNo }}</td>
+                        <td>{{ envanter.envanterTipi }}</td>
+                        <td>{{ envanter.marka }}</td>
+                        <td>{{ envanter.model }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+<p-dialog [(visible)]="dialogShow" [style]="{width: '450px'}" header="Envanter Ekle/Düzenle" [modal]="true"
+    class="p-fluid">
+    <ng-template pTemplate="content">
+
+        <div class="field">
+            <label for="envanterNo">Envanter No</label>
+            <input type="text" pInputText id="envanterNo" [(ngModel)]="selectedEnvanter.envanterNo" required
+                autofocus />
+            <!-- <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small> -->
+        </div>
+        <div class="field">
+            <label for="seriNo">Seri No</label>
+            <input type="text" pInputText id="seriNo" [(ngModel)]="selectedEnvanter.seriNo" required autofocus />
+        </div>
+        <div class="field">
+            <label for="envanterTipi">Envanter Tipi</label>
+            <input type="text" pInputText id="envanterTipi" [(ngModel)]="selectedEnvanter.envanterTipi" required
+                autofocus />
+        </div>
+        <div class="field">
+            <label for="marka">Marka</label>
+            <input type="text" pInputText id="marka" [(ngModel)]="selectedEnvanter.marka" required autofocus />
+        </div>
+        <div class="field">
+            <label for="model">Model</label>
+            <input type="text" pInputText id="model" [(ngModel)]="selectedEnvanter.model" required autofocus />
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="iptal" icon="pi pi-times" class="p-button-text"
+            (click)="dialogShow = false;"></button>
+        <button pButton pRipple label="Kaydet" icon="pi pi-check" class="p-button-text"
+            (click)="envanterKaydet()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="dialogDeleteShow" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+    <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span><b>{{selectedEnvanter.envanterNo}}</b> Seçili Envanter Silinecek Emin misiniz ?</span>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="İptal"
+            (click)="dialogDeleteShow = false"></button>
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Sil" (click)="confirmDelete()"></button>
+    </ng-template>
+</p-dialog>

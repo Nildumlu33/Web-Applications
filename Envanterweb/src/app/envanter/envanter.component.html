@@ -8,7 +8,7 @@
                     <button pButton pRipple label="Ekle" icon="pi pi-plus" class="p-button-success mr-2"
                         (click)="selectedEnvanter={}; isUpdate = false; openDialog()"></button>
                     <button pButton pRipple label="Düzenle" icon="pi pi-pencil" class="p-button-success mr-2"
-                        (click)="isUpdate = true; openDialog()"></button>
+                        (click)="isUpdate = true; openDialog2()"></button>
                     <button pButton pRipple label="Sil" icon="pi pi-trash" class="p-button-danger"
                         (click)="dialogDeleteShow = true"></button>
                 </ng-template>
@@ -63,7 +63,7 @@
     </div>
 </div>
 
-<p-dialog [(visible)]="dialogShow" [style]="{width: '450px'}" header="Envanter Ekle/Düzenle" [modal]="true"
+<p-dialog [(visible)]="dialogShowAdd" [style]="{width: '450px'}" header=" Envanter Ekle" [modal]="true"
     class="p-fluid">
     <ng-template pTemplate="content">
 
@@ -71,7 +71,7 @@
             <label for="envanterNo">Envanter No</label>
             <input type="text" pInputText id="envanterNo" [(ngModel)]="selectedEnvanter.envanterNo" required
                 autofocus />
-            <!-- <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small> -->
+            
         </div>
         <div class="field">
             <label for="seriNo">Seri No</label>
@@ -94,13 +94,50 @@
 
     <ng-template pTemplate="footer">
         <button pButton pRipple label="iptal" icon="pi pi-times" class="p-button-text"
-            (click)="dialogShow = false;"></button>
+            (click)="dialogShowAdd = false;"></button>
         <button pButton pRipple label="Kaydet" icon="pi pi-check" class="p-button-text"
             (click)="envanterKaydet()"></button>
     </ng-template>
 </p-dialog>
 
-<p-dialog [(visible)]="dialogDeleteShow" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+<p-dialog [(visible)]="dialogShowUpdate" [style]="{width: '450px'}" header="Seçili Envanteri Düzenle" [modal]="true"
+    class="p-fluid"> 
+    <ng-template pTemplate="content">
+
+        <div class="field">
+            <label for="envanterNo">Envanter No</label>
+            <input type="text" pInputText id="envanterNo" [(ngModel)]="selectedEnvanter.envanterNo" required
+                autofocus />
+            
+        </div>
+        <div class="field">
+            <label for="seriNo">Seri No</label>
+            <input type="text" pInputText id="seriNo" [(ngModel)]="selectedEnvanter.seriNo" required autofocus />
+        </div>
+        <div class="field">
+            <label for="envanterTipi">Envanter Tipi</label>
+            <input type="text" pInputText id="envanterTipi" [(ngModel)]="selectedEnvanter.envanterTipi" required
+                autofocus />
+        </div>
+        <div class="field">
+            <label for="marka">Marka</label>
+            <input type="text" pInputText id="marka" [(ngModel)]="selectedEnvanter.marka" required autofocus />
+        </div>
+        <div class="field">
+            <label for="model">Model</label>
+            <input type="text" pInputText id="model" [(ngModel)]="selectedEnvanter.model" required autofocus />
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="iptal" icon="pi pi-times" class="p-button-text"
+            (click)="dialogShowUpdate = false;"></button>
+        <button pButton pRipple label="Kaydet" icon="pi pi-check" class="p-button-text"
+            (click)="envanterKaydet()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="dialogDeleteShow" header="Sil" [modal]="true" [style]="{width:'450px'}">
     <div class="flex align-items-center justify-content-center">
         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
         <span><b>{{selectedEnvanter.envanterNo}}</b> Seçili Envanter Silinecek Emin misiniz ?</span>

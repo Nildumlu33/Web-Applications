@@ -4,26 +4,20 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                 </ng-template>
-
                 <ng-template pTemplate="right">
-                    <button pButton pRipple label="Yeni" icon="pi pi-plus" class="p-button-success mr-2"
-                        (click)="openDialog()"></button>
+                    <button pButton pRipple label="Ekle" icon="pi pi-plus" class="p-button-success mr-2"
+                        (click)="selectedzimmet={}; isUpdate = false; openDialog()"></button>
+                    <button pButton pRipple label="Düzenle" icon="pi pi-pencil" class="p-button-success mr-2"
+                        (click)="isUpdate = true; openDialog()"></button>
                     <button pButton pRipple label="Sil" icon="pi pi-trash" class="p-button-danger"
                         (click)="dialogDeleteShow = true"></button>
                 </ng-template>
             </p-toolbar>
 
-
-            <!-- <p-table #dt1 [value]="zimmetData" [rowHover]="true"
-                [tableStyle]="{ 'min-width': '60rem' }" [globalFilterFields]="['envanterId, personelAdi, zimmetTarihi']"
-                [paginator]="true" [rowsPerPageOptions]="[1, 5, 10, 15, 20, 30]" [rows]="10"
-                [(selection)]="selectedzimmet" selectionMode="single" dataKey="id"> -->
-
                 <p-table #dt1 [value]="zimmetData" [tableStyle]="{ 'min-width': '60rem' }" [rowHover]="true"
                 [globalFilterFields]="['envanterId, personelAdi, zimmetTarihi']" [paginator]="true"
                 [rowsPerPageOptions]="[1, 5, 10, 15, 20, 30]" [rows]="10" [(selection)]="selectedzimmet"
                 selectionMode="single" dataKey="id">
-
 
 
                 <ng-template pTemplate="caption">
@@ -65,7 +59,7 @@
     </div>
 </div>
 
-<p-dialog [(visible)]="dialogShow" [style]="{width: '450px'}" header="Zimmetlenen Kişiyi Ekle/Düzenle" [modal]="true"
+<p-dialog [(visible)]="dialogShow" [style]="{width: '450px'}" header="dialogTitle" [modal]="true"
     class="p-fluid">
     <ng-template pTemplate="content">
 
@@ -84,20 +78,40 @@
             <input type="text" pInputText id="zimmetTarihi" [(ngModel)]="selectedzimmet.zimmetTarihi" required
                 autofocus />
         </div>
-        <!-- <div class="field">
-            <label for="envanterNo">Envanter No</label>
-            <input type="text" pInputText id="envanterNo" [(ngModel)]="selectedEnvanter.EnvanterNo" required
-                autofocus />
-            <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
-        </div> -->
+        
     </ng-template>
 
     <ng-template pTemplate="footer">
         <button pButton pRipple label="iptal" icon="pi pi-times" class="p-button-text"
             (click)="dialogShow = false;"></button>
-        <button pButton pRipple label="Kaydet" icon="pi pi-check" class="p-button-text"></button>
+        <button pButton pRipple label="Kaydet" icon="pi pi-check" class="p-button-text" (click)="zimmetKaydet()"></button>
     </ng-template>
 </p-dialog>
+
+<!-- <p-dialog [(visible)]="dialogShowUpdate" [style]="{width: '450px'}" header="Zimmetlenen Kişiyi Düzenle" [modal]="true"
+    class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="envanterId">Envanter Id</label>
+            <input type="text" pInputText id="envanterId" [(ngModel)]="selectedzimmet.envanterId" required autofocus />
+        </div>
+        <div class="field">
+            <label for="personelAdi">Personel Adı</label>
+            <input type="text" pInputText id="personelAdi" [(ngModel)]="selectedzimmet.personelAdi" required
+                autofocus />
+        </div>
+        <div class="field">
+            <label for="zimmetTarihi">Zimmet Tarihi</label>
+            <input type="text" pInputText id="zimmetTarihi" [(ngModel)]="selectedzimmet.zimmetTarihi" required
+                autofocus />
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="iptal" icon="pi pi-times" class="p-button-text"
+            (click)="dialogShowUpdate = false;"></button>
+        <button pButton pRipple label="Kaydet" icon="pi pi-check" class="p-button-text"></button>
+    </ng-template>
+</p-dialog> -->
 
 <p-dialog [(visible)]="dialogDeleteShow" header="Confirm" [modal]="true" [style]="{width:'450px'}">
     <div class="flex align-items-center justify-content-center">

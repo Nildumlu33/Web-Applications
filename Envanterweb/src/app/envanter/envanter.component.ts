@@ -17,7 +17,8 @@ export class EnvanterComponent implements OnInit {
 
   loading: boolean = true;
 
-  dialogShow: boolean = false;
+  dialogShowAdd: boolean = false;
+  dialogShowUpdate : boolean = false;
   dialogDeleteShow: boolean = false;
 
   isUpdate = false;
@@ -44,7 +45,10 @@ export class EnvanterComponent implements OnInit {
   }
 
   openDialog() {
-    this.dialogShow = true;
+    this.dialogShowAdd = true;
+  }
+  openDialog2() {
+    this.dialogShowUpdate = true;
   }
 
   confirmDelete() {
@@ -59,13 +63,14 @@ export class EnvanterComponent implements OnInit {
       .then(data => data);
   }
 
-  envanterKaydet() {
+  envanterKaydet() 
+  {
     if (this.isUpdate) {
       this.http.post<any>('http://localhost:5109/Urun/urunGuncelle', this.selectedEnvanter)
         .toPromise()
         .then(res => {
 
-          if (res == true) { this.dialogShow = false; this.loadData(); }
+          if (res == true) { this.dialogShowUpdate = false; this.loadData(); }
           return res as Envanter[];
         })
         .then(data => data);
@@ -75,7 +80,7 @@ export class EnvanterComponent implements OnInit {
         .toPromise()
         .then(res => {
 
-          if (res == true) { this.dialogShow = false; this.loadData(); }
+          if (res == true) { this.dialogShowAdd = false; this.loadData(); }
           return res as Envanter[];
         })
         .then(data => data);
